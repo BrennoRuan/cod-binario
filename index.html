@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Texto para Código Binário</title>
+</head>
+<body>
+    <h1>Conversor de Texto para Código Binário</h1>
+    <label for="texto">Digite um texto:</label>
+    <textarea id="texto" cols="50" rows="4"></textarea>
+    <button onclick="converterParaBinario()">Converter para Binário</button>
+    <p>Código Binário:</p>
+    <textarea id="codigoBinario" rows="4" cols="50" readonly></textarea>
+    <button onclick="converterParaTexto()">Converter para Texto</button>
+    <p>Texto Decodificado:</p>
+    <textarea id="textoDecodificado" rows="4" cols="50" readonly></textarea>
+
+    <script>
+        // Função para converter texto para código binário
+        function converterParaBinario() {
+            const texto = document.getElementById('texto').value;
+            let resultado = '';
+            for (let i = 0; i < texto.length; i++) {
+                const char = texto.charCodeAt(i).toString(2);
+                resultado += '0'.repeat(8 - char.length) + char;
+            }
+            document.getElementById('codigoBinario').value = resultado;
+        }
+
+        // Função para converter código binário para texto
+        function converterParaTexto() {
+            const codigoBinario = document.getElementById('codigoBinario').value;
+            let resultado = '';
+            for (let i = 0; i < codigoBinario.length; i += 8) {
+                const byte = codigoBinario.substr(i, 8);
+                resultado += String.fromCharCode(parseInt(byte, 2));
+            }
+            document.getElementById('textoDecodificado').value = resultado;
+        }
+    </script>
+</body>
+</html>
